@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useRef, useState } from "react";
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ onCreate }) => {
+  const authorInput = useRef();
+  const contentInput = useRef();
+
   const [state, setState] = useState({
-    author: '',
-    content: '',
-    score: '1',
+    author: "",
+    content: "",
+    score: "5",
   });
 
   const handleChangeState = (e) => {
@@ -15,8 +18,27 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    console.log(state);
-    alert('저장 성공');
+    if (state.author.length < 1) {
+      // focus textbox when it's saved without any contents in textbox
+      authorInput.current.focus();
+
+      return;
+    }
+
+    if (state.content.length < 5) {
+      // focus textbox when it's saved without any contents in textbox
+      contentInput.current.focus();
+      return;
+    }
+
+    onCreate(state.author, state.content, state.score);
+    alert("저장 성공");
+
+    setState({
+      author: "",
+      content: "",
+      score: 5,
+    });
   };
 
   return (
@@ -24,15 +46,15 @@ const DiaryEditor = () => {
       <h2>Today I Learned</h2>
 
       <div>
-        <input name="author" value={state.author} onChange={handleChangeState} />
+        <input ref={authorInput} name="author" value={state.author} onChange={handleChangeState} />
       </div>
 
       <div>
-        <textarea name="content" value={state.content} onChange={handleChangeState}></textarea>
+        <textarea ref={contentInput} name="content" value={state.content} onChange={handleChangeState}></textarea>
       </div>
 
       <div>
-        오늘의 집중 점수 :
+        집중 점수 :
         <select name="score" value={state.score} onChange={handleChangeState}>
           <option value={1}>1</option>
           <option value={2}>2</option>
