@@ -9,7 +9,7 @@ const DiaryItem = ({ onEdit, onRemove, author, content, created_date, score, id 
   };
 
   const handleRemove = () => {
-    if (window.confirm(`${id}번째 일기를 정말 삭제하시겠습니까?`)) {
+    if (window.confirm(`${id + 1}번째 일기를 정말 삭제하시겠습니까?`)) {
       onRemove(id);
     }
   };
@@ -26,7 +26,7 @@ const DiaryItem = ({ onEdit, onRemove, author, content, created_date, score, id 
       return;
     }
 
-    if (window.confirm(`${id}번째 일기를 수정하시겠습니까?`)) {
+    if (window.confirm(`${id + 1}번째 일기를 수정하시겠습니까?`)) {
       onEdit(id, localContent);
       toggleIsEdit();
     }
