@@ -1,6 +1,14 @@
-import { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import { DiaryDispatchContext } from "./App";
+/*
+리렌더 
+1. state 변화
+2. 부모 컴포넌트 리렌더링
+3. 자신이 받은 prop 변경
+*/
+const DiaryEditor = () => {
+  const { onCreate } = useContext(DiaryDispatchContext);
 
-const DiaryEditor = ({ onCreate }) => {
   const authorInput = useRef();
   const contentInput = useRef();
 
@@ -71,4 +79,4 @@ const DiaryEditor = ({ onCreate }) => {
   );
 };
 
-export default DiaryEditor;
+export default React.memo(DiaryEditor);

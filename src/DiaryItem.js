@@ -1,6 +1,9 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { DiaryDispatchContext } from "./App";
 
-const DiaryItem = ({ onEdit, onRemove, author, content, created_date, score, id }) => {
+const DiaryItem = ({ author, content, created_date, score, id }) => {
+  const { onRemove, onEdit } = useContext(DiaryDispatchContext);
+
   const localContentInput = useRef();
   const [localContent, setLocalContent] = useState(content);
   const [isEdit, setIsEdit] = useState(false); // if isEdit is true, DiaryItem component is set modify mode
@@ -69,4 +72,4 @@ const DiaryItem = ({ onEdit, onRemove, author, content, created_date, score, id 
   );
 };
 
-export default DiaryItem;
+export default React.memo(DiaryItem);
